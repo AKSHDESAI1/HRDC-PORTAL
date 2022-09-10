@@ -245,9 +245,9 @@
   .sidebar.active .profile #log_out {
     background: none;
   }
-  
+
   .home_content {
-    background: url("bg1.jpg");
+    background: url('http://127.0.0.1:8000/static/img/bg1.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;

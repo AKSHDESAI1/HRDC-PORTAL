@@ -1,304 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Announcement</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Boxicons CDN Links -->
-    <link
-      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/add_announcement.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/add_announcement.css' %}">
     <!-- <script type="text/javascript" src="add_ancmnt.js"></script> -->
     <style>
-      #lgid {
-        justify-items: center;
-        margin: 8px;
-        margin-top: 0px;
-        padding-top: 15px;
-      }
+        #lgid {
+            justify-items: center;
+            margin: 8px;
+            margin-top: 0px;
+            padding-top: 15px;
+        }
 
-      #mainI {
-        height: 100%;
-        width: 100%;
-        opacity: 0.9;
-      }
+        #mainI {
+            height: 100%;
+            width: 100%;
+            opacity: 0.9;
+        }
 
-      #mainTx {
-        justify-items: center;
-        display: flex;
-        justify-content: center;
-      }
+        #mainTx {
+            justify-items: center;
+            display: flex;
+            justify-content: center;
+        }
     </style>
-  </head>
+</head>
 
-  <body onload="init()">
+<body>
     {% include "partials/sidebar.html" %}
 
     <div class="home_content">
-      <section class="tabs" id="tabs">
-        <section id="all_tab">
-          <div id="tab" class="tab" onclick="openTab()">
-            <h4>New Announcement</h4>
-            <div id="close_tab" class="close_tab" onclick="closeTabs(this.id)">
-              <img src="{% static 'img/close.png' %}" alt="" class="close" />
-            </div>
-          </div>
-        </section>
-        <section class="plus_tab" onclick="addTabs()">
-          <img src="{% static 'img/plus_tab.png' %}" alt="" class="click_plus" />
-        </section>
-      </section>
-
-      <section class="announcement_section" id="announcement_section">
-        <div class="form" id="form">
-          <form
-            name="form"
-            method="post"
-            onsubmit="return (validate())"
-            id="form_no"
-          > {% csrf_token %}
-            <div class="form-group row">
-              <label
-                for="academicyear"
-                class="col-sm-4 col-form-label fieldspace"
-                ><strong>Academic Year</strong></label
-              >
-              <div class="col-sm-5 fieldspace">
-                <select class="form-control" id="academmicyear" name="academmicyear" required>
-                  <option value="2021-2022">2021-2022</option>
-                  <option value="2022-2023">2022-2023</option>
-                  <option value="2023-2024">2023-2024</option>
-                  <option value="2024-2025">2024-2025</option>
-                  <option value="2025-2026">2025-2026</option>
-                  <option value="2026-2027">2026-2027</option>
-                  <option value="2027-2028">2027-2028</option>
-                  <option value="2028-2029">2028-2029</option>
-                  <option value="2029-2030">2029-2030</option>
-                </select>
-              </div>
-
-              <label for="eventname" class="col-sm-4 col-form-label fieldspace"
-                ><strong>Event Name</strong></label
-              >
-              <div class="col-sm-8 fieldspace">
-                <textarea
-                  class="form-control"
-                  id="eventname"
-                  name="eventname"
-                  rows="3"
-                  required
-                ></textarea>
-              </div>
-
-              <label for="eventfocus" class="col-sm-4 col-form-label fieldspace"
-                ><strong>Event Focus</strong></label
-              >
-              <div class="col-sm-8 fieldspace">
-                <textarea
-                  class="form-control"
-                  id="eventfocus"
-                  name="eventfocus"
-                  rows="3"
-                  required
-                ></textarea>
-              </div>
-
-              <label
-                for="eventstartdate"
-                class="col-sm-4 col-form-label fieldspace"
-                ><strong>Event Start Date</strong></label
-              >
-              <div class="col-sm-5 fieldspace">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="eventstartdate"
-                  name="eventstartdate"
-                  onchange="calculateDays()"
-                  required
-                />
-              </div>
-
-              <label
-                for="eventenddate"
-                class="col-sm-4 col-form-label fieldspace"
-                ><strong>Event End Date</strong></label
-              >
-              <div class="col-sm-5 fieldspace">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="eventenddate"
-                  name="eventenddate"
-                  onchange="calculateDays()"
-                  required
-                />
-              </div>
-
-              <div class="form-group row" id="eventtiming"></div>
-
-              <label for="eventvenue" class="col-sm-4 col-form-label fieldspace"
-                ><strong>Event Venue</strong></label
-              >
-              <div class="col-sm-8 fieldspace">
-                <textarea
-                  class="form-control"
-                  id="eventvenue"
-                  name="eventvenue"
-                  rows="3"
-                  required
-                ></textarea>
-              </div>
-
-              <label
-                for="eventresourceperson"
-                class="col-sm-4 col-form-label fieldspace"
-                ><strong>Event Resource Person</strong></label
-              >
-              <div class="col-sm-8 fieldspace">
-                <textarea
-                  class="form-control"
-                  id="eventresourceperson"
-                  name="eventresourceperson"
-                  rows="3"
-                  required
-                ></textarea>
-              </div>
-
-              <div class="container">
-                <div class="col-md-12 text-center">
-                  <button
-                    type="submit"
-                    class="btn btn-outline-dark fieldspace"
-                    id="submit"
-                  >
-                    Announce
-                  </button>
+        <section class="tabs" id="tabs">
+            <section id="all_tab">
+                <div id="tab" class="tab" onclick="showTab(this.id)">
+                    <h4>New Announcement</h4>
+                    <div id="close_tab" class="close_tab" onclick="closeTabs(this.id)">
+                        <img src="{% static 'img/close.png' %}" alt="" class="close">
+                    </div>
                 </div>
-              </div>
+            </section>
+            <section class="plus_tab" onclick="addTabs()" onc>
+                <img src="{% static 'img/plus_tab.png' %}" alt="" class="click_plus">
+            </section>
+        </section>
+
+        <section class="announcement_section" id="announcement_section">
+            <div class="form" id="form">
+                <form name="form" method="post" onsubmit="return (validate())" id="form_no"> {% csrf_token %}
+                    <div class="form-group row ">
+
+                        <label for="academicyear" class="col-sm-4 col-form-label fieldspace"><strong>Academic
+                                Year</strong></label>
+                        <div class="col-sm-5 fieldspace">
+                            <select class="form-control" id="academmicyear" name="academmicyear">
+                                <option value="2021-2022">2021-2022</option>
+                                <option value="2022-2023">2022-2023</option>
+                                <option value="2023-2024">2023-2024</option>
+                                <option value="2024-2025">2024-2025</option>
+                                <option value="2025-2026">2025-2026</option>
+                                <option value="2026-2027">2026-2027</option>
+                                <option value="2027-2028">2027-2028</option>
+                                <option value="2028-2029">2028-2029</option>
+                                <option value="2029-2030">2029-2030</option>
+                            </select>
+                        </div>
+
+                        <label for="eventname" class="col-sm-4 col-form-label fieldspace"><strong>Event
+                                Name</strong></label>
+                        <div class="col-sm-8 fieldspace">
+                            <textarea class="form-control" id="eventname" rows="3" name="eventname"></textarea>
+                        </div>
+
+                        <label for="eventfocus" class="col-sm-4 col-form-label fieldspace"><strong>Event
+                                Focus</strong></label>
+                        <div class="col-sm-8 fieldspace">
+                            <textarea class="form-control" id="eventfocus" name="eventfocus" rows="3"></textarea>
+                        </div>
+
+                        <label for="eventstartdate" class="col-sm-4 col-form-label fieldspace"><strong>Event Start
+                                Date</strong></label>
+                        <div class="col-sm-5 fieldspace">
+                            <input type="date" 
+                            name="eventstartdate" class="form-control" id="eventstartdate" onchange="calculateDays()">
+                        </div>
+
+                        <label for="eventenddate" class="col-sm-4 col-form-label fieldspace"><strong>Event End
+                                Date</strong></label>
+                        <div class="col-sm-5 fieldspace">
+                            <input type="date" class="form-control" id="eventenddate" 
+                            name="eventenddate"
+                            onchange="calculateDays()">
+                        </div>
+
+                        <div class="form-group row" id="eventtiming">
+                        </div>
+
+                        <label for="eventvenue" class="col-sm-4 col-form-label fieldspace"><strong>Event
+                                Venue</strong></label>
+                        <div class="col-sm-8 fieldspace">
+                            <textarea class="form-control" id="eventvenue" name="eventvenue" rows="3"></textarea>
+                        </div>
+
+                        <label for="eventresourceperson" class="col-sm-4 col-form-label fieldspace"><strong>Event
+                                Resource Person</strong></label>
+                        <div class="col-sm-8 fieldspace">
+                            <textarea class="form-control" id="eventresourceperson" rows="3" name="eventresourceperson"></textarea>
+                        </div>
+
+                        <div class="container">
+                            <div class="col-md-12 text-center">
+                                <input type="submit" class="btn btn-outline-dark fieldspace"
+                                    id="submit" value="Announce">
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
             </div>
-          </form>
-        </div>
-      </section>
+
+
+        </section>
     </div>
 
     <script>
-      let btn = document.querySelector("#btn");
-      let sidebar = document.querySelector(".sidebar");
-      let searchBtn = document.querySelector(".bx-search");
-      let counter = 0;
-      let count = 0;
+        let btn = document.querySelector("#btn");
+        let sidebar = document.querySelector(".sidebar");
+        let searchBtn = document.querySelector(".bx-search");
+        let counter = 0;
+        let count = 0;
+        let log_data = [
+            {
 
-      btn.onclick = function () {
-        sidebar.classList.toggle("active");
-      };
-      searchBtn.onclick = function () {
-        sidebar.classList.toggle("active");
-      };
-
-      function calculateDays() {
-        counter++;
-        var d1 = document.getElementById("eventstartdate").value;
-        var d2 = document.getElementById("eventenddate").value;
-
-        const date1 = new Date(d1);
-        const date2 = new Date(d2);
-        const time = Math.abs(date2 - date1);
-        const days = Math.ceil(time / (1000 * 60 * 60 * 24));
-        console.log(days);
-
-        if (date1 > date2) {
-          document.getElementById("eventtiming").innerHTML = "";
-          alert("Please make valid selection of starting and ending dates");
-        } else {
-          if (days === 0) {
-            html =
-              '<label for="eventtime" class="col-md-4 col-form-label fieldspace"><strong>Event Time</strong></label>\
-                            <div class="col-md-4 fieldspace" style="padding-right: 1rem;">\
-                                <label for="starttime ' +
-              i +
-              ' " class="col-sm-6 col-form-label"><strong>Start Time :</strong></label>\
-                                <input type="time" class="form-control" name="starttime1 " required></input>\
-                            </div>\
-                            <div class="col-md-4 fieldspace" style="padding-left: 1rem;">\
-                                <label for="endtime  ' +
-              i +
-              ' " class="col-sm-6 col-form-label"><strong>End Time :</strong></label>\
-                                <input type="time" class="form-control" name="endtime1 " required></input>\
-                            </div>';
-            document.getElementById("eventtiming").innerHTML = html;
-          } else {
-            console.log('a2')
-            if (counter > 1) {
-              document.getElementById("eventtiming").innerHTML = "";
             }
+        ]
+        var tabList = {
+            'tab': 'form'
+        };
+        var tabHistory = {
+            'tab': 'form'
+        };
+        var childs_announcement = document.getElementById('announcement_section').children; // to fetch the forms present inside announcement section
 
-            for (var i = 1; i <= days + 1; i++) {
-              html =
-                '<label for="eventtime" class="col-md-4 col-form-label fieldspace"><strong>Day ' +
-                i +
-                ' Time</strong></label>\
-                            <div class="col-md-4 fieldspace" style="padding-right: 1rem;">\
-                                <label for="starttime ' +
-                i +
-                ' " class="col-sm-6 col-form-label"><strong>Start Time :</strong></label>\
-                                <input type="time" class="form-control" name="starttime' +
-                i +
-                ' " required></input>\
-                            </div>\
-                            <div class="col-md-4 fieldspace" style="padding-left: 1rem;">\
-                                <label for="endtime  ' +
-                i +
-                ' " class="col-sm-6 col-form-label"><strong>End Time :</strong></label>\
-                                <input type="time" class="form-control" name="endtime' +
-                i +
-                ' " required></input>\
-                            </div>';
-              document.getElementById("eventtiming").innerHTML += html;
-            }
-          }
+        // sidebar functions
+        btn.onclick = function () {
+            sidebar.classList.toggle("active");
         }
-      }
+        searchBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+        }
 
-      function addTabs() {
-        count++;
-        html =
-          '<div id="tab ' +
-          count +
-          ' " class="tab"  onclick="openTab()">\
+        // tab functions
+        function calculateDays() {
+            counter++;
+            var d1 = document.getElementById("eventstartdate").value;
+            var d2 = document.getElementById("eventenddate").value;
+
+            const date1 = new Date(d1);
+            const date2 = new Date(d2);
+            const time = Math.abs(date2 - date1);
+            const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+            console.log(days);
+
+            if (date1 > date2) {
+                document.getElementById('eventtiming').innerHTML = "";
+                alert("Please make valid selection of starting and ending dates")
+            }
+            else {
+                if (days === 0) {
+                    html =
+                      '<label for="eventtime" class="col-md-4 col-form-label fieldspace"><strong>Event Time</strong></label>\
+                                    <div class="col-md-4 fieldspace" style="padding-right: 1rem;">\
+                                        <label for="starttime ' +
+                      i +
+                      ' " class="col-sm-6 col-form-label"><strong>Start Time :</strong></label>\
+                                        <input type="time" class="form-control" name="starttime1 " required></input>\
+                                    </div>\
+                                    <div class="col-md-4 fieldspace" style="padding-left: 1rem;">\
+                                        <label for="endtime  ' +
+                      i +
+                      ' " class="col-sm-6 col-form-label"><strong>End Time :</strong></label>\
+                                        <input type="time" class="form-control" name="endtime1 " required></input>\
+                                    </div>';
+                    document.getElementById("eventtiming").innerHTML = html;
+                  } 
+                else {
+                    if (counter > 1) {
+                        document.getElementById('eventtiming').innerHTML = "";
+                    }
+
+                    for (var i = 1; i <= days + 1; i++) {
+                        html = '<label for="eventtime" class="col-md-4 col-form-label fieldspace"><strong>Day ' + i + ' Time</strong></label>\
+                            <div class="col-md-4 fieldspace" style="padding-right: 1rem;">\
+                                <label for="starttime '+ i + ' " class="col-sm-6 col-form-label"><strong>Start Time :</strong></label>\
+                                <input type="time" class="form-control" id="starttime '+ i + ' "></input>\
+                            </div>\
+                            <div class="col-md-4 fieldspace" style="padding-left: 1rem;">\
+                                <label for="endtime  '+ i + ' " class="col-sm-6 col-form-label"><strong>End Time :</strong></label>\
+                                <input type="time" class="form-control" id="endtime  '+ i + ' "></input>\
+                            </div>'
+                        document.getElementById('eventtiming').innerHTML += html;
+                    }
+                }
+            }
+        }
+
+        function addTabs() {
+            count++;
+            html = '<div id="tab ' + count + ' " class="tab"  onclick="showTab(this.id)">\
                     <h4>New Announcement</h4>\
-                    <div id="close_tab ' +
-          count +
-          ' " class="close_tab"  onclick="closeTabs(this.id)">\
-                        <img src="./icons/close.png" alt="" class="close">\
+                    <div id="close_tab ' + count + ' " class="close_tab"  onclick="closeTabs(this.id)">\
+                        <img src="{% static 'img/close.png' %}" alt="" class="close">\
                     </div>\
                 </div>';
 
-        form =
-          '<div class="form" id="form ' +
-          count +
-          ' ">\
-                <form name="form ' +
-          count +
-          ' " method="post" onsubmit="return (validate())" id="form_no">\
+            form = '<div class="form" id="form ' + count + ' ">\
+                <form name="form ' + count + ' " method="post" onsubmit="return (validate())" id="form_no">\
                     <div class="form-group row ">\
-                        <label for ="academicyear ' +
-          count +
-          ' " class="col-sm-4 col-form-label fieldspace"><strong>AcademicYear</strong></label>\
+                        <label for ="academicyear ' + count + ' " class="col-sm-4 col-form-label fieldspace"><strong>Academic Year</strong></label>\
                         <div class="col-sm-5 fieldspace">\
-                            <select class="form-control" id="academmicyear ' +
-          count +
-          ' ">\
+                            <select class="form-control" id="academmicyear ' + count + ' ">\
                                 <option value="2021-2022">2021-2022</option>\
                                 <option value="2022-2023">2022-2023</option>\
                                 <option value="2023-2024">2023-2024</option>\
@@ -310,134 +239,140 @@
                                 <option value="2029-2030">2029-2030</option>\
                             </select>\
                         </div>\
-                        <label for="eventname ' +
-          count +
-          ' " class="col-sm-4 col-form-label fieldspace"><strong>EventName</strong></label>\
+                        <label for="eventname ' + count + ' " class="col-sm-4 col-form-label fieldspace"><strong>Event Name</strong></label>\
                         <div class="col-sm-8 fieldspace">\
-                            <textarea class="form-control" id="eventname ' +
-          count +
-          ' " rows="3"></textarea>\
+                            <textarea class="form-control" id="eventname ' + count + ' " rows="3"></textarea>\
                         </div>\
-                        <label for="eventfocus ' +
-          count +
-          ' " class="col-sm-4 col-form-label fieldspace"><strong>EventFocus</strong></label>\
+                        <label for="eventfocus ' + count + ' " class="col-sm-4 col-form-label fieldspace"><strong>Event Focus</strong></label>\
                         <div class="col-sm-8 fieldspace">\
-                            <textarea class="form-control" id="eventfocus ' +
-          count +
-          ' " rows="3"></textarea>\
+                            <textarea class="form-control" id="eventfocus ' + count + ' " rows="3"></textarea>\
                         </div>\
-                        <label for="eventstartdate ' +
-          count +
-          ' " class="col-sm-4 col-form-label fieldspace"><strong>Event StartDate</strong></label>\
+                        <label for="eventstartdate ' + count + ' " class="col-sm-4 col-form-label fieldspace"><strong>Event Start Date</strong></label>\
                         <div class="col-sm-5 fieldspace">\
-                            <input type="date" class="form-control" id="eventstartdate ' +
-          count +
-          ' " onchange="calculateDays()">\
+                            <input type="date" class="form-control" id="eventstartdate ' + count + ' " onchange="calculateDays()">\
                         </div>\
-                        <label for="eventenddate ' +
-          count +
-          ' " class="col-sm-4 col-form-label fieldspace"><strong>Event EndDate</strong></label>\
+                        <label for="eventenddate ' + count + ' " class="col-sm-4 col-form-label fieldspace"><strong>Event End Date</strong></label>\
                         <div class="col-sm-5 fieldspace">\
-                            <input type="date" class="form-control" id="eventenddate ' +
-          count +
-          ' " onchange="calculateDays()">\
+                            <input type="date" class="form-control" id="eventenddate ' + count + ' " onchange="calculateDays()">\
                         </div>\
-                        <div class="form-group row" id="eventtiming ' +
-          count +
-          ' ">\
+                        <div class="form-group row" id="eventtiming ' + count + ' ">\
                         </div>\
-                        <label for="eventvenue ' +
-          count +
-          ' " class="col-sm-4 col-form-label fieldspace"><strong>EventVenue</strong></label>\
+                        <label for="eventvenue ' + count + ' " class="col-sm-4 col-form-label fieldspace"><strong>Event Venue</strong></label>\
                         <div class="col-sm-8 fieldspace">\
-                            <textarea class="form-control" id="eventvenue ' +
-          count +
-          ' " rows="3"></textarea>\
+                            <textarea class="form-control" id="eventvenue ' + count + ' " rows="3"></textarea>\
                         </div>\
-                        <label for="eventresourceperson ' +
-          count +
-          ' " class="col-sm-4 col-form-label fieldspace"><strong>EventResource Person</strong></label>\
+                        <label for="eventresourceperson ' + count + ' " class="col-sm-4 col-form-label fieldspace"><strong>Event Resource Person</strong></label>\
                         <div class="col-sm-8 fieldspace">\
-                            <textarea class="form-control" id="eventresourceperson ' +
-          count +
-          ' " rows="3"></textarea>\
+                            <textarea class="form-control" id="eventresourceperson ' + count + ' " rows="3"></textarea>\
                         </div>\
                         <div class="container">\
                             <div class="col-md-12 text-center">\
-                                <button type="button" class="btn btn-outline-dark fieldspace" id="submit ' +
-          count +
-          ' ">Announce</button>\
+                                <input type="submit" class="btn btn-outline-dark fieldspace" value="Announce" id="submit ' + count + ' ">\
                             </div>\
                         </div>\
                     </div>\
                 </form>\
             </div>';
 
-        document.getElementById("all_tab").innerHTML += html;
-        document.getElementById("announcement_section").innerHTML += form;
-      }
+            document.getElementById('all_tab').innerHTML += html;
+            document.getElementById('announcement_section').innerHTML += form;
 
-      function closeTabs(clicked_id) {
-        var child = document.getElementById(clicked_id);
+            var allTab = document.getElementById('all_tab').children;
+            // console.log(allTab[count].id);
+            // console.log(childs_announcement[count].id);
 
-        child.parentElement.remove();
-      }
+            var tempChild = allTab[count].id;
+            var tempForm = childs_announcement[count].id;
+            tabList[tempChild] = tempForm;
 
-      var tabLinks = new Array();
-      var contentDivs = new Array();
+            for (var child in childs_announcement) {
+                console.log(child);
+                console.log(childs_announcement[child].id);
+                if (childs_announcement[child].id === tabList[tempChild]) {
+                    document.getElementById(childs_announcement[child].id).style.display = 'block'; // to show only the newly created tab
+                    tabHistory[tempChild] = tempForm; // to store the history of tabs
+                }
+                else if (child !== 'length' && child !== 'item' && child !== 'namedItem') {
+                    document.getElementById(childs_announcement[child].id).style.display = 'none';
+                }
+            }
+            // 794 - 45 = 749
+            var limit = document.getElementById('tabs').offsetWidth;
+            var alltabLength = document.getElementById('all_tab').offsetWidth;
+            console.log(limit);
+            console.log(alltabLength);
+            var tabArray = Object.keys(tabList);
+            var tabLength = (limit - 45) / (count + 1);
+            console.log(tabLength);
 
-      function init() {
-        // Grab the tab links and content divs from the page
-        var tabListItems = document.getElementById("all_tab").childNodes;
-        for (var i = 0; i < tabListItems.length; i++) {
-          if (tabListItems[i].nodeName == "DIV") {
-            var tabLink = getFirstChildWithTagName(tabListItems, "DIV");
-            var id = getHash(tabLink.getAttribute("id"));
-            tabLinks[id] = tabLink;
-            contentDivs[id] = document.getElementById(id);
-          }
+            if (alltabLength > limit) {
+                for (tabs in tabArray) {
+                    console.log(tabArray[tabs]);
+                    document.getElementById(tabArray[tabs]).style.width = tabLength + "px";
+                }
+                console.log(document.getElementById('tabs').offsetWidth);
+            }
+
         }
 
-        // Assign onclick events to the tab links, and
-        // highlight the first tab
-        var i = 0;
+        function closeTabs(child_id) {
+            var announcement = document.getElementById('announcement_section'); // to store the announcement section as a variable
+            var childTab = document.getElementById(child_id);
 
-        for (var id in tabLinks) {
-          tabLinks[id].onclick = showTab;
-          tabLinks[id].onfocus = function () {
-            this.blur();
-          };
-          if (i == 0) tabLinks[id].className = "selected";
-          i++;
+            // console.log(childTab.parentElement.id);
+            var parentID = childTab.parentElement.id; // to get the tab id to close it
+
+            for (var child in childs_announcement) {
+                if (childs_announcement[child].id === tabList[parentID]) {
+                    announcement.removeChild(childs_announcement[child]);
+                    console.log("deleted");
+                }
+            }
+
+            delete tabHistory[parentID];
+            childTab.parentElement.remove();
+            delete tabList[parentID];
+            count--;
+
+            var lastTab = Object.keys(tabHistory).pop();
+
+            for (var forms in childs_announcement) {
+                if (childs_announcement[forms].id === tabList[lastTab]) {
+                    document.getElementById(childs_announcement[forms].id).style.display = 'block';
+                }
+            }
+
+            // // 794 - 45 = 749
+            // var alltabLength = document.getElementById('all_tab').offsetWidth;
+            // var tabArray = Object.keys(tabList);
+            // var tabLength = 749 / (count + 1);
+            // if (alltabLength > 749) {
+            //     for (tabs in tabArray) {
+            //         document.getElementById(tabArray[tabs]).style.width = tabLength + "px";
+            //     }
+            //     console.log(document.getElementById('tabs').offsetWidth);
+            // }
+            // else {
+            //     for (tabs in tabArray) {
+            //         document.getElementById(tabArray[tabs]).style.width = "fit-content";
+            //     }
+            // }
         }
 
-        // Hide all content divs except the first
-        var i = 0;
-
-        for (var id in contentDivs) {
-          if (i != 0) contentDivs[id].className = "form hide";
-          i++;
+        function showTab(tabID) {
+            if (tabList[tabID]) {
+                for (var child in childs_announcement) {
+                    if (childs_announcement[child].id === tabList[tabID]) {
+                        document.getElementById(childs_announcement[child].id).style.display = 'block';
+                        tabHistory[tabID] = childs_announcement[child].id;
+                    }
+                    else if (child !== 'length' && child !== 'item' && child !== 'namedItem') {
+                        document.getElementById(childs_announcement[child].id).style.display = 'none';
+                    }
+                }
+            }
         }
-      }
-
-      function showTab() {
-        var selectedId = getHash(this.getAttribute("id"));
-
-        // Highlight the selected tab, and dim all others.
-        // Also show the selected content div, and hide all others.
-        for (var id in contentDivs) {
-          if (id == selectedId) {
-            tabLinks[id].className = "selected";
-            contentDivs[id].className = "form";
-          } else {
-            tabLinks[id].className = "";
-            contentDivs[id].className = "form hide";
-          }
-        }
-
-        // Stop the browser following the link
-        return false;
-      }
     </script>
-  </body>
+</body>
+
 </html>

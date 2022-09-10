@@ -50,11 +50,6 @@ body {
     margin-right: 5px;
 }
 
-.logo_content .logo .logo_name {
-    margin-left: -22px;
-    margin-top: -12px;
-}
-
 .sidebar #btn {
     position: absolute;
     color: #fff;
@@ -80,7 +75,7 @@ body {
     position: relative;
     height: 50px;
     width: 100%;
-    margin: 0 5px;
+    margin: 0 0 0 -35px;
     list-style: none;
     line-height: 50px;
     /* border-radius: 12px; */
@@ -253,7 +248,7 @@ body {
 }
 
 .home_content {
-    background: url('http://127.0.0.1:8000/static/img/bg1.jpg');   
+    background: url('http://127.0.0.1:8000/static/img/bg1.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -267,6 +262,76 @@ body {
     left: 78px;
     width: calc(100% - 78px);
     transition: all 0.5s ease;
+    /* flex-direction: column; */
+    flex-flow: column;
+}
+
+.tabs {
+    z-index: 2;
+    width: 90%;
+    height: fit-content;
+    /* padding: 5px; */
+    margin-bottom: 4px;
+    display: flex;
+    flex-direction: row;
+    /* position:absolute; */
+    /* top: 0; */
+}
+
+#all_tab {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.close {
+    margin-top: 4px;
+    margin-left: 15px;
+    height: 14px;
+    width: 14px;
+    cursor: pointer;
+}
+
+.close_tab {
+    display: flex;
+}
+
+.tab {
+    display: flex;
+    flex-wrap: wrap;
+    color: #ffffff;
+    padding: 10px;
+    padding-bottom: 0;
+    background-color: #000000;
+    min-width: fit-content;
+    margin-right: 4px;
+    margin-block-end: 0px;
+    cursor: default;
+}
+
+.tab h4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+}
+
+.tab.selected {
+    background-color: #11101d;
+}
+
+.click_plus {
+    height: 20px;
+    width: 18px;
+}
+
+.plus_tab {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    background-color: #000000;
 }
 
 .home_content .text {
@@ -285,6 +350,71 @@ body {
     width: calc(100% -240px);
     left: 240px;
 }
+
+.announcement_section {
+    background-color: white;
+    height: 85%;
+    width: 90%;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    /* z-index: 0; */
+    box-shadow: 0px 0px 0px 15px #cfd2d86a;
+    overflow: scroll;
+    /* padding-top: 20px; */
+    /* position: absolute; */
+}
+
+#datedisplay {
+    display: block;
+}
+
+.form {
+    width: 50%;
+}
+
+form.hide {
+    display: none;
+}
+
+#form_no {
+    position: relative;
+    /* width: 50%; */
+    z-index: 0;
+    top: 0;
+}
+
+.fieldspace {
+    margin-top: 20px;
+}
+
+.row {
+    --bs-gutter-x: 0;
+}
+
+.announcement_section h1 {
+    /* color: rgb(25, 132, 162); */
+    color: #ffffff;
+    font-size: 60px;
+}
+
+.announcement_section p {
+    color: #814b22;
+    font-size: 20px;
+    background: #fff;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+.announcement_options {
+    padding-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 
 .announcement_section {
     background-color: white;
@@ -328,51 +458,12 @@ body {
     align-items: center;
     gap: 20px;
 }
-
-.add_announcement {
-    align-items: center;
-    justify-content: center;
-    /* margin: 20%; */
-    display: flex;
-    flex-direction: column;
-    height: 50vh;
-    width: 30vw;
-    cursor: pointer;
+ #a{
+    margin-top: 41px;
 }
-
-.add_announcement > span{
-    height: 20px;
-}
-
-.add_announcement:hover{
-    background: rgba(232, 222, 222, 0.74);
-}
-
-.plus {
-    width: 60x;
-    height: 68px;
-}
-
-.announcement_list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* margin: 20%; */
-    height: 50vh;
-    width: 30vw;
-    cursor: pointer;
-} 
-
-.announcement_list > span{
-    height: 20px;
-}
-
-.announcement_list:hover{
-    background: rgba(232, 222, 222, 0.74);
-}
-
-.list{
-    width: 60x;
-    height: 68px;
+/*#be{
+    margin-left: 0%;
+} */
+.alert alert-success alert-dismissible{
+    height: 100%;
 }
