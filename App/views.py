@@ -1,3 +1,4 @@
+from urllib import response
 from .models import Event
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -56,7 +57,8 @@ def list_announcement(request):
 
 def add_announcement(request):
     if request.method == 'POST':
-        academicyear = request.POST['academmicyear']
+        print("rudra", request.POST)
+        academicyear = request.POST['academicyear']
         eventname = request.POST['eventname']
         eventfocus = request.POST['eventfocus']
         eventstartdate = request.POST['eventstartdate']
@@ -66,9 +68,15 @@ def add_announcement(request):
         starttime = []
         endtime = []
 
-        for i in range(1, (int(eventenddate[8:]) - int(eventstartdate[8:]) + 1) + 1):
-            starttime.append(request.POST[f'starttime{i} '])
-            endtime.append(request.POST[f'endtime{i} '])
+        for i in range(1, (int(eventenddate[8:]) - int(eventstartdate[8:]) + 2)):
+            print(f'starttime{i}', request.POST[f'starttime{i}'])
+            print(f'endtime{i}', request.POST[f'endtime{i}'])
+            starttime.append(request.POST[f'starttime{i}'])
+            endtime.append(request.POST[f'endtime{i}'])
+        
+        print("starttime", starttime)
+        print("endtime", endtime)
+
         doc = Event(academicyear=academicyear, eventname=eventname, eventfocus=eventfocus, eventstartdate=eventstartdate,
                     eventenddate=eventenddate, eventvenue=eventvenue, eventresourceperson=eventresourceperson, starttime=starttime, endtime=endtime)
         doc.save()
@@ -79,13 +87,14 @@ def add_announcement(request):
         # print(eventenddate[8:])
         # print(int(eventenddate[8:]) - int(eventstartdate[8:]) + 1)
         # print('starttime1', request.POST['starttime1 '])
-        print(f"academmicyear {academicyear}")
-        print(f"eventname {eventname}")
-        print(f"eventfocus {eventfocus}")
-        print(f"eventstartdate {eventstartdate}")
-        print(f"eventenddate {eventenddate}")
-        print(f"eventvenue {eventvenue}")
-        print(f"eventresourceperson {eventresourceperson}")
+
+        # print(f"academmicyear {academicyear}")
+        # print(f"eventname {eventname}")
+        # print(f"eventfocus {eventfocus}")
+        # print(f"eventstartdate {eventstartdate}")
+        # print(f"eventenddate {eventenddate}")
+        # print(f"eventvenue {eventvenue}")
+        # print(f"eventresourceperson {eventresourceperson}")
         return HttpResponseRedirect('/list_announcement')
     return render(request, 'App/add_announcement.html')
 
@@ -96,30 +105,38 @@ def edit_announcement(request, myid):
 
 
 def nomination(request):
-    if request.method == "POST":
-        EmployeeName = request.POST['name']
-        EmployeeId = request.POST['id']
-        Branch = request.POST['branch']
-        FunctionDepartment = request.POST['fDepa']
-        ContactNo = request.POST['phone']
-        ContactNoMobile = request.POST['phone1']
-        ReportingAuthority = request.POST['authority']
-        TotalExperience = request.POST['experience']
-        TotalExperienceField = request.POST['expField']
-        TotalTeachingExperience = request.POST['teaExp']
-        TotalTeachingExperienceField = request.POST['teaExpfield']
-        Batch = request.POST['batch']
+    if request.user.is_superuser:
+        print(1)
+        a1 = Nomination.objects.all()
+        return render(request, 'App/admin_nomination.html', {'a1': a1})
+    else:
+        print(2)
+        if request.method == "POST":
+            EmployeeName = request.POST['name']
+            EmployeeId = request.POST['id']
+            Branch = request.POST['branch']
+            FunctionDepartment = request.POST['fDepa']
+            ContactNo = request.POST['phone']
+            ContactNoMobile = request.POST['phone1']
+            ReportingAuthority = request.POST['authority']
+            TotalExperience = request.POST['experience']
+            TotalExperienceField = request.POST['expField']
+            TotalTeachingExperience = request.POST['teaExp']
+            TotalTeachingExperienceField = request.POST['teaExpfield']
+            Batch = request.POST['batch']
 
-        data = Nomination(EmployeeName=EmployeeName,
-                          EmployeeId=EmployeeId,
-                          Branch=Branch,
-                          FunctionDepartment=FunctionDepartment,
-                          ContactNo=ContactNo,
-                          ContactNoMobile=ContactNoMobile,
-                          ReportingAuthority=ReportingAuthority,
-                          TotalExperience=f'{TotalExperience} - {TotalExperienceField}',
-                          TotalTeachingExperience=f'{TotalTeachingExperienceField} - {TotalTeachingExperienceField}',
-                          Batch=Batch)
-        data.save()
-        messages.success(request, 'Nomination has been Succeffully Registered.')
-    return render(request, "App/nomination.html")
+            data = Nomination(EmployeeName=EmployeeName,
+                              EmployeeId=EmployeeId,
+                              Branch=Branch,
+                              FunctionDepartment=FunctionDepartment,
+                              ContactNo=ContactNo,
+                              ContactNoMobile=ContactNoMobile,
+                              ReportingAuthority=ReportingAuthority,
+                              TotalExperience=f'{TotalExperience} - {TotalExperienceField}',
+                              TotalTeachingExperience=f'{TotalTeachingExperience} - {TotalTeachingExperienceField}',
+                              Batch=Batch)
+            data.save()
+            messages.success(
+                request, 'Nomination has been Succeffully Registered.')
+        print(3)
+        return render(request, "App/nomination.html")

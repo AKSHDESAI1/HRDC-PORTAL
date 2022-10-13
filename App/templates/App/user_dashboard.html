@@ -32,77 +32,8 @@
     {% load static %}
   </head>
   <body>
-    <div class="sidebar">
-      <div class="logo_content">
-        <div class="logo">
-          <!-- <i class='bx bxl-c-plus-plus'></i> -->
-          <div class="logo_name">
-            <img
-              src="{% static 'img/charusatlogo.png' %}"
-              alt=""
-              style="width: 150px"
-              class="rounded-circle"
-              id="lgid"
-            />
-          </div>
-        </div>
-        <i class="bx bx-menu" id="btn"></i>
-      </div>
-      <ul class="nav_list">
-        <li>
-          <i class="bx bx-search"></i>
-          <input type="text" placeholder="Search..." />
-          <span class="tooltip"><b>Search...</b></span>
-        </li>
-        <li>
-          <a href="#">
-            <i class="bx bx-grid-alt"></i>
-            <span class="links_name">DashBoard</span>
-          </a>
-          <span class="tooltip"><b>DashBoard</b></span>
-        </li>
-        <li>
-          <a href="#">
-            <i class="bx bxs-calendar"></i>
-            <span class="links_name">BatchWise Nomination</span>
-          </a>
-          <span class="tooltip"><b>Nomination</b></span>
-        </li>
-        <li>
-          <a href="#">
-            <i class="bx bx-certification"></i>
-            <span class="links_name">Certificate</span>
-          </a>
-          <span class="tooltip"><b>Certificate</b></span>
-        </li>
-        <li>
-          <a href="#">
-            <i class="bx bxs-user-check"></i>
-            <span class="links_name">Attendance</span>
-          </a>
-          <span class="tooltip"><b>Attendance</b></span>
-        </li>
-        <li>
-          <a href="/logout">
-            <i class="bx bx-log-out"></i>
-            <span class="links_name">Log Out</span>
-          </a>
-          <span class="tooltip"><b>Log Out</b></span>
-        </li>
-      </ul>
-      <div class="profile_content">
-        <div class="profile">
-          <div class="profile_details">
-            <img src="{% static 'img/1.png' %}" alt="" />
-            <div class="name_job">
-              <div class="name">User Shahi</div>
-              <div class="job">Web Desiner</div>
-            </div>
-          </div>
-          <i class="bx bx-log-out" id="log_out"></i>
-        </div>
-      </div>
-    </div>
+    {% load static %}
+    {% include "partials/user_sidebar.html" %}
     <div class="home_content">
       <img src="{% static 'img/bg1.jpg' %}" alt="" id="mainI" />
     </div>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomination_List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Boxicons CDN Links -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/nomination.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    <!-- <script type="text/javascript" src="add_ancmnt.js"></script> -->
+    
+</head>
+
+<body>
+
+    <!-- SIDE NAVBAR -->
+    {% include "partials/sidebar.html" %}
+
+    <!-- SIDE NAVBAR END -->
+
+    <div class="home_content">
+        <section class="announcement_section">
+            <div class="heading_announcement">
+              <h2 style="color: white;">Nomination_List</h2>
+            </div>
+            <br>
+
+            <div class="container">
+
+                <table class="table table-hover table-bordered align-middle border-primary" id="example">
+                    <thead class="">
+                      <tr class="">
+                        <th scope="col">No. </th>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Employee Id </th>
+                        <th scope="col">Branch</th>
+                        <th scope="col">Function Department</th>
+                        <th scope="col">Contact No</th>
+                        <th scope="col">Contact No Mobile</th>
+                        <th scope="col">Reporting Authority</th>
+                        <th scope="col">Total Experience</th>
+                        <th scope="col">Total Teaching Experience</th>
+                        <th scope="col">Batch</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+            
+                      {% for i in a1|slice:"::-1" %}
+            
+                      <tr class='my-3 '>
+                        <th scope="row" class="">{{forloop.revcounter}}</th>
+
+                        <td class=""><span>{{i.EmployeeName}}</span></td>
+                        <td class=""><span>{{i.EmployeeId}}</span></td>
+                        </td>
+                        <td class=""><span>{{i.Branch}}</span></td>
+                        </td>
+                        <td class=""><span>{{i.FunctionDepartment}}</span></td>
+                        <td class=""><span>{{i.ContactNo}}</span></td>
+                        <td class=""><span>{{i.ContactNoMobile}}</span></td>
+                        <td class=""><span>{{i.ReportingAuthority}}</span></td>
+                        <td class=""><span>{{i.TotalExperience}}</span></td>
+                        <td class=""><span>{{i.TotalTeachingExperience}}</span></td>
+                        <td class=""><span>{{i.Batch}}</span></td>
+                        </td>
+            
+                        <script>
+                          function share(element) {
+                            if (navigator.share) {
+            
+                              navigator.share({
+                                title: 'MESHV PATEL - AKSH DESAI', url: 'https://aksh21.pythonanywhere.com' + element
+                              })
+            
+                            }
+                          }
+                        </script>
+                      </tr>        
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+
+
+            
+           <section>
+    </div>
+    <script>
+        let btn = document.querySelector("#btn");
+        let sidebar = document.querySelector(".sidebar");
+        let searchBtn = document.querySelector(".bx-search");
+        btn.onclick =function() {
+            sidebar.classList.toggle("active");
+        }
+        searchBtn.onclick =function() {
+            sidebar.classList.toggle("active");
+        }
+    </script>
+
+</body>
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+crossorigin="anonymous"
+></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+{% comment %} <script>bubbly();</script> {% endcomment %}
+<script>
+  bubbly({
+    colorStart: '#4c004c',
+    colorStop: '#1a001a',
+    bubbleFunc:() => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
+  });
+</script>
+
+<script>
+$(document).ready(function () {
+  $('#example').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+      'copyHtml5',
+      'excelHtml5',
+      'csvHtml5',
+      'pdfHtml5'
+    ]
+  });
+});
+</script>
+
+</html>
