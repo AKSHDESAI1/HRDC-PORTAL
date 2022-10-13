@@ -15,7 +15,7 @@ def Event_api(request):
         return HttpResponse(json_data, content_type="appication/json")
     
     if request.method == "POST":
-        json_data = request.body
+        json_data = request.body  
         stream = io.BytesIO(json_data) # fetch Json data
         pythondata = JSONParser().parse(stream) #Convert json_data to python Native Datatype
         serializer = EventSerializer(data = pythondata) #Convert Native Data to Complex Data Type

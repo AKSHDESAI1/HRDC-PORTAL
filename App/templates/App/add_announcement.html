@@ -12,6 +12,9 @@
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/add_announcement.css' %}" />
   <!-- <script type="text/javascript" src="add_ancmnt.js"></script> -->
+
+  <!-- Party JS script  -->
+  <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
   <style>
     #lgid {
       justify-items: center;
@@ -114,7 +117,7 @@
 
             <div class="container">
               <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-outline-dark fieldspace" id="submit">Announce</button>
+                <button type="submit" class="btn btn-outline-dark fieldspace disabled" onmousedown="party.confetti(this)" id="submit">Announce</button>
               </div>
             </div>
 
@@ -127,20 +130,72 @@
   </div>
 
   <script>
+    party.confetti(runButton, {
+      count: party.variation.range(200, 400),
+    });
+  </script>
+
+  <script>
     document.getElementById("form_no").addEventListener("submit", async (e) => {
       e.preventDefault();
-      console.log("meow");
 
-      let academicyear = document.getElementById("academicyear");
-      let eventname = document.getElementById("eventname");
-      let eventfocus = document.getElementById("eventfocus");
-      let eventstartdate = document.getElementById("eventstartdate");
-      let eventenddate = document.getElementById("eventenddate");
-      let eventvenue = document.getElementById("eventvenue");
-      let eventresourceperson = document.getElementById("eventresourceperson");
+      let academicyear = document.getElementById("academicyear").value;
+      let eventname = document.getElementById("eventname").value;
+      let eventfocus = document.getElementById("eventfocus").value;
+      let eventstartdate = document.getElementById("eventstartdate").value;
+      let eventenddate = document.getElementById("eventenddate").value;
+      let eventvenue = document.getElementById("eventvenue").value;
+      let eventresourceperson = document.getElementById("eventresourceperson").value;
 
-      console.log("eventstartdate", eventstartdate),
-      console.log("eventenddate", eventenddate),
+      let diff = eventenddate.slice(8, ) - eventstartdate.slice(8, );
+
+      starttime = []
+      endtime = []
+
+      for (i = 1; i <= diff + 1; i++) {
+        starttime.push(document.getElementById(`starttime${i}`).value)
+        endtime.push(document.getElementById(`endtime${i}`).value)
+      }
+
+      let data = await fetch("http://127.0.0.1:8000/api/event/", {
+        method: "POST",
+        headers: {
+          'Content_Type': "application/json",
+        },
+        body: JSON.stringify({
+          academicyear,
+          eventname,
+          eventfocus,
+          eventstartdate,
+          eventenddate,
+          eventvenue,
+          eventresourceperson,
+          starttime: starttime.toString(),
+          endtime: endtime.toString()
+        })
+      });
+
+      let res = await data.json();
+      // alert("Successfully! Event Created. ")
+      document.getElementById("form").innerHTML = "<h1 class='text-center text-primary'> Successfully Created </h1>"
+
+      localStorage.removeItem("academicyear");
+      localStorage.removeItem("eventname");
+      localStorage.removeItem("eventfocus");
+      localStorage.removeItem("eventstartdate");
+      localStorage.removeItem("eventenddate");
+      localStorage.removeItem("eventvenue");
+      localStorage.removeItem("eventresourceperson");
+
+      document.getElementById("academicyear").value = ""
+      document.getElementById("eventname").value = ""
+      document.getElementById("eventfocus").value = ""
+      document.getElementById("eventstartdate").value = ""
+      document.getElementById("eventenddate").value = ""
+      document.getElementById("eventvenue").value = ""
+      document.getElementById("eventresourceperson").value = ""
+
+      document.getElementById("eventtiming").innerHTML = ""
     })
 
 
@@ -424,6 +479,17 @@
     }
 
     function savevalue(id) {
+      console.log("hi")
+      let academicyear = document.getElementById("academicyear").value;
+      let eventname = document.getElementById("eventname").value;
+      let eventfocus = document.getElementById("eventfocus").value;
+      let eventvenue = document.getElementById("eventvenue").value;
+      let eventresourceperson = document.getElementById("eventresourceperson").value;
+
+      if (academicyear != "" && eventname != "" && eventfocus != "" && eventstartdate != "" && eventenddate != "" && eventvenue != "" && eventresourceperson != "") {
+        console.log("bye")
+        document.getElementById("submit").classList.remove("disabled")
+      }
       console.log(id);
       localStorage.setItem(id, document.getElementById(id).value);
       console.log(localStorage.getItem(id));

@@ -38,7 +38,7 @@
             <div class="alert alert-success alert-dismissible" style="padding-right:47rem" id="a">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <strong style="font-size: 21px">{{i.eventname | truncatechars:10}} ({{i.eventstartdate}}  -  {{i.eventenddate}})</strong>
-                 <h4 style='font-size: 21px'>At Charusat University</h4>                              
+                 <h4 style='font-size: 21px'>{{i.eventvenue}}</h4>                              
                 <a href="/edit_announcement/{{i.id}}" type="button" class="btn btn-primary">Edit</a>
               </div>
             {% endfor %}
