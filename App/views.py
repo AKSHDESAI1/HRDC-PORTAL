@@ -49,10 +49,14 @@ def announcement(request):
 
 
 def list_announcement(request):
-    data = Event.objects.all()
-    context = {'data': data}
-    print(data)
-    return render(request, 'App/list_announcement.html', context)
+    if request.user.is_superuser == True:
+        data = Event.objects.all()
+        context = {'data': data, 'super': True}
+        return render(request, 'App/list_announcement.html', context)
+    else:
+        data = Event.objects.all()
+        context = {'data': data, 'super': False}
+        return render(request, 'App/list_announcement.html', context)
 
 
 def add_announcement(request):
@@ -73,7 +77,7 @@ def add_announcement(request):
             print(f'endtime{i}', request.POST[f'endtime{i}'])
             starttime.append(request.POST[f'starttime{i}'])
             endtime.append(request.POST[f'endtime{i}'])
-        
+
         print("starttime", starttime)
         print("endtime", endtime)
 
@@ -106,11 +110,9 @@ def edit_announcement(request, myid):
 
 def nomination(request):
     if request.user.is_superuser:
-        print(1)
         a1 = Nomination.objects.all()
         return render(request, 'App/admin_nomination.html', {'a1': a1})
     else:
-        print(2)
         if request.method == "POST":
             EmployeeName = request.POST['name']
             EmployeeId = request.POST['id']
@@ -138,5 +140,21 @@ def nomination(request):
             data.save()
             messages.success(
                 request, 'Nomination has been Succeffully Registered.')
-        print(3)
         return render(request, "App/nomination.html")
+
+
+def nomination1(request):
+    return render(request, "App/1nomination.html")
+
+
+def batchwise_nomination(request):
+    return render(request, "App/batchwise_nomination.html")
+
+
+def download_nomi_admin(request):
+    return render(request, "App/download_nomi_admin.html")
+
+
+def download_excel(request):
+    a1 = Nomination.objects.all()
+    return render(request, "App/admin_nomination.html", {'a1': a1})

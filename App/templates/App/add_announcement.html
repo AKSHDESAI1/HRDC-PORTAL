@@ -58,7 +58,7 @@
 
     <section class="announcement_section" id="announcement_section">
       <div class="form" id="form">
-        <form name="form" onsubmit="return validate()" id="form_no">
+        <form name="form" id="form_no">
           <div class="form-group row ">
             <label for="academicyear" class="col-sm-4 col-form-label fieldspace"><strong>Academic
                 Year</strong></label>
@@ -117,7 +117,7 @@
 
             <div class="container">
               <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-outline-dark fieldspace disabled" onmousedown="party.confetti(this)" id="submit">Announce</button>
+                <button type="submit" class="btn btn-outline-dark fieldspace" onmousedown="party.confetti(this)" id="submit">Announce</button>
               </div>
             </div>
 
@@ -138,6 +138,7 @@
   <script>
     document.getElementById("form_no").addEventListener("submit", async (e) => {
       e.preventDefault();
+      console.log("meow");
 
       let academicyear = document.getElementById("academicyear").value;
       let eventname = document.getElementById("eventname").value;

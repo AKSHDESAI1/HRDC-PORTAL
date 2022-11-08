@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Boxicons CDN Links -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title>Announcement</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/announcement.css' %}" />
+    <style>
+      #lgid {
+        justify-items: center;
+        margin: 30px;
+        padding-top: 15px;
+      }
+
+      #mainI {
+        height: 100%;
+        width: 100%;
+        opacity: 0.9;
+      }
+
+      #mainTx {
+        justify-items: center;
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include "partials/sidebar.html" %}
+
+    <div class="home_content">
+      <!-- <div class="text">Home Content</div> -->
+      {% comment %} <img src="{% static 'img/bg1.jpg' %}" alt="" id="mainI"> {% endcomment %}
+      <section class="announcement_section">
+        <div class="heading_announcement">
+          <h1> Nomination </h1>
+        </div>
+        <section class="announcement_options">
+         <a href="{% url 'batchwise_nomination' %}" class='text-dark'>
+            <div class="add_announcement">
+                <img src="{% static 'img/plus.png' %}" alt="" class="plus" />
+                <span></span>
+                <h2 style='color: black'> Create BatchWise Nomination</h2>
+              </div>
+         </a>
+         <a href="{% url 'download_nomi_admin' %}" class='text-dark'>
+          <div class="announcement_list">
+            <img src="{% static 'img/list.png' %}" alt="" class="list" />
+            <span></span>
+            <h2 style='color: black'>Announcement List</h2>
+          </div>
+         </a>
+        </section>
+      </section>
+      <!-- <div class="text" id="mainTx">WELCOME</div> -->
+    </div>
+    <script>
+      let btn = document.querySelector("#btn");
+      let sidebar = document.querySelector(".sidebar");
+      let searchBtn = document.querySelector(".bx-search");
+
+      btn.onclick = function () {
+        sidebar.classList.toggle("active");
+      };
+      searchBtn.onclick = function () {
+        sidebar.classList.toggle("active");
+      };
+    </script>
+  </body>
+</html>

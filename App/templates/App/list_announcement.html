@@ -23,7 +23,11 @@
 <body>
 
     <!-- SIDE NAVBAR -->
+    {% if super %}
     {% include "partials/sidebar.html" %}
+    {% else %}
+    {% include "partials/user_sidebar.html" %}
+    {% endif %}
 
     <!-- SIDE NAVBAR END -->
 
@@ -36,10 +40,12 @@
 
             {% for i in data %}
             <div class="alert alert-success alert-dismissible" style="padding-right:47rem" id="a">
+                {% if super %}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {% endif %}
                 <strong style="font-size: 21px">{{i.eventname | truncatechars:10}} ({{i.eventstartdate}}  -  {{i.eventenddate}})</strong>
                  <h4 style='font-size: 21px'>{{i.eventvenue}}</h4>                              
-                <a href="/edit_announcement/{{i.id}}" type="button" class="btn btn-primary">Edit</a>
+                <a href="/edit_announcement/{{i.id}}" type="button" class="btn btn-primary">View</a>
               </div>
             {% endfor %}
 
