@@ -224,10 +224,10 @@
               '</strong></h4>\
                                 <img class="arrow_img" id="d' +
               i +
-              '_downarrow" src="arrow-down.png" onclick="dayPan(this.id)">\
+              '_downarrow" src="{% static 'img/arrow-down.png' %}" onclick="dayPan(this.id)">\
                                 <img class="arrow_img" id="d' +
               i +
-              '_uparrow" src="arrow-up.png" onclick="dayPan(this.id)">\
+              '_uparrow" src="{% static 'img/arrow-up.png' %}" onclick="dayPan(this.id)">\
                             </div>\
                             <div class="daypan" id="d' +
               i +
@@ -270,7 +270,7 @@
                                         </div>\
                                     </div>\
                                 </div>\
-                                <img src="plus.png" id="d' +
+                                <img src="{% static 'img/plus.png' %}" id="d' +
               i +
               '_plus" alt="" class="plus_img" onclick="addBatch(this.id)">\
                             </div>';
